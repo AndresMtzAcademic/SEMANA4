@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cápsula Educativa Interactiva: El Arte de la Redacción</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Top Navigation & Progress Bar -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo & Title -->
+                <div class="flex items-center space-x-3">
+                    <div class="bg-indigo-600 text-white p-2.5 rounded-xl flex items-center justify-center shadow-md shadow-indigo-200">
+                        <i class="fa-solid fa-feather-pointed text-lg"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider block">Nivel Universitario</span>
+                        <h1 class="text-sm sm:text-base font-bold text-slate-900 leading-tight">Cápsula de Redacción y Sintaxis</h1>
+                    </div>
+                </div>
+
+                <!-- Navigation Tabs (Desktop) -->
+                <nav class="hidden md:flex space-x-1 lg:space-x-2">
+                    <button onclick="switchTab('inicio')" id="tab-inicio" class="tab-btn px-3 py-2 text-sm font-medium rounded-lg text-indigo-600 bg-indigo-50 transition-all duration-200">
+                        <i class="fa-solid fa-house mr-1.5"></i> Inicio
+                    </button>
+                    <button onclick="switchTab('modulo1')" id="tab-modulo1" class="tab-btn px-3 py-2 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all duration-200">
+                        <i class="fa-solid fa-lightbulb mr-1.5"></i> M1: El Concepto
+                    </button>
+                    <button onclick="switchTab('modulo2')" id="tab-modulo2" class="tab-btn px-3 py-2 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all duration-200">
+                        <i class="fa-solid fa-wand-magic-sparkles mr-1.5"></i> M2: Cualidades
+                    </button>
+                    <button onclick="switchTab('modulo3')" id="tab-modulo3" class="tab-btn px-3 py-2 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all duration-200">
+                        <i class="fa-solid fa-route mr-1.5"></i> M3: Fases
+                    </button>
+                    <button onclick="switchTab('modulo4')" id="tab-modulo4" class="tab-btn px-3 py-2 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all duration-200">
+                        <i class="fa-solid fa-circle-nodes mr-1.5"></i> M4: Sintaxis
+                    </button>
+                    <button onclick="switchTab('integradora')" id="tab-integradora" class="tab-btn px-3 py-2 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all duration-200">
+                        <i class="fa-solid fa-trophy mr-1.5"></i> Reto Final
+                    </button>
+                    <button onclick="switchTab('docente')" id="tab-docente" class="tab-btn px-3 py-2 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all duration-200 border border-dashed border-slate-300">
+                        <i class="fa-solid fa-chalkboard-user mr-1.5"></i> Docente
+                    </button>
+                </nav>
+
+                <!-- General Progress Tracker -->
+                <div class="flex items-center space-x-2">
+                    <div class="hidden sm:block text-right">
+                        <span class="text-xs text-slate-500 block">Progreso Global</span>
+                        <span id="progress-percent" class="text-xs font-bold text-indigo-600">0%</span>
+                    </div>
+                    <div class="w-20 bg-slate-200 rounded-full h-2">
+                        <div id="progress-bar-fill" class="bg-indigo-600 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Bar (Bottom) -->
+    <div class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 z-50 flex justify-around py-2 shadow-lg">
+        <button onclick="switchTab('inicio')" class="mobile-tab-btn flex flex-col items-center text-indigo-600 text-[10px]" id="mob-tab-inicio">
+            <i class="fa-solid fa-house text-lg"></i>
+            <span>Inicio</span>
+        </button>
+        <button onclick="switchTab('modulo1')" class="mobile-tab-btn flex flex-col items-center text-slate-500 text-[10px]" id="mob-tab-modulo1">
+            <i class="fa-solid fa-lightbulb text-lg"></i>
+            <span>Concepto</span>
+        </button>
+        <button onclick="switchTab('modulo2')" class="mobile-tab-btn flex flex-col items-center text-slate-500 text-[10px]" id="mob-tab-modulo2">
+            <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
+            <span>Cualidades</span>
+        </button>
+        <button onclick="switchTab('modulo3')" class="mobile-tab-btn flex flex-col items-center text-slate-500 text-[10px]" id="mob-tab-modulo3">
+            <i class="fa-solid fa-route text-lg"></i>
+            <span>Fases</span>
+        </button>
+        <button onclick="switchTab('modulo4')" class="mobile-tab-btn flex flex-col items-center text-slate-500 text-[10px]" id="mob-tab-modulo4">
+            <i class="fa-solid fa-circle-nodes text-lg"></i>
+            <span>Sintaxis</span>
+        </button>
+        <button onclick="switchTab('integradora')" class="mobile-tab-btn flex flex-col items-center text-slate-500 text-[10px]" id="mob-tab-integradora">
+            <i class="fa-solid fa-trophy text-lg"></i>
+            <span>Reto</span>
+        </button>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 pb-24 md:pb-12">
+        
+        <!-- Tab 0: INICIO / INTRODUCCIÓN ATRACTIVA -->
+        <section id="pane-inicio" class="tab-pane active space-y-8 animate-fadeIn">
+            <!-- Hero Hook Banner -->
+            <div class="relative bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 text-white rounded-3xl p-6 sm:p-10 shadow-2xl overflow-hidden">
+                <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-indigo-500 rounded-full filter blur-3xl opacity-30"></div>
+                <div class="absolute -left-20 -top-20 w-80 h-80 bg-emerald-500 rounded-full filter blur-3xl opacity-20"></div>
+                
+                <div class="relative z-10 max-w-3xl">
+                    <span class="bg-indigo-500/30 text-indigo-300 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-widest inline-block mb-4 border border-indigo-400/20">
+                        <i class="fa-solid fa-graduation-cap mr-1"></i> Inducción Académica
+                    </span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+                        ¿WhatsApp o Ensayo Académico? <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">
+                            El Súper Poder de Hacerte Entender
+                        </span>
+                    </h2>
+                    <p class="mt-4 text-slate-300 text-base sm:text-lg max-w-2xl leading-relaxed">
+                        Imagínate enviar un correo a un profesor pidiendo extensión de plazo y que te responda: <em>"No entiendo qué me solicitas"</em>. Escribir no es solo juntar palabras; es diseñar puentes de pensamiento. Domina las reglas de la redacción para ser leído y respetado.
+                    </p>
+                    <div class="mt-8 flex flex-wrap gap-4">
+                        <button onclick="switchTab('modulo1')" class="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-xl font-semibold shadow-lg shadow-emerald-900/30 transition-all transform hover:-translate-y-0.5 flex items-center">
+                            Iniciar mi Aventura <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </button>
+                        <div class="flex items-center text-xs text-slate-300 bg-slate-800/40 px-3.5 py-2 rounded-xl border border-slate-700">
+                            <i class="fa-regular fa-clock mr-2 text-emerald-400"></i> Duración Estimada: 240 min
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Learning Objectives & Navigation Guide -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Objectives -->
+                <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 flex items-center mb-4">
+                            <span class="p-1.5 bg-indigo-50 text-indigo-600 rounded-lg mr-2.5">
+                                <i class="fa-solid fa-bullseye"></i>
+                            </span>
+                            Objetivos de Aprendizaje
+                        </h3>
+                        <p class="text-slate-600 text-sm mb-6">
+                            Al finalizar esta experiencia interactiva, habrás desarrollado competencias clave que te harán destacar en cualquier materia universitaria:
+                        </p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <div class="bg-emerald-100 text-emerald-700 p-1 rounded-full mr-3 mt-0.5">
+                                    <i class="fa-solid fa-check text-xs"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-semibold text-slate-900">Dominar la Estructura y Sintaxis</h4>
+                                    <p class="text-xs text-slate-500">Organizar ideas respetando la sintaxis del español para estructurar oraciones claras y cohesivas.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="bg-emerald-100 text-emerald-700 p-1 rounded-full mr-3 mt-0.5">
+                                    <i class="fa-solid fa-check text-xs"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-semibold text-slate-900">Aplicar Cualidades Clave de Redacción</h4>
+                                    <p class="text-xs text-slate-500">Detectar y corregir vicios de escritura, aplicando claridad, concisión, coherencia y adecuación académica.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="bg-emerald-100 text-emerald-700 p-1 rounded-full mr-3 mt-0.5">
+                                    <i class="fa-solid fa-check text-xs"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-semibold text-slate-900">Implementar las 3 Fases de Escritura</h4>
+                                    <p class="text-xs text-slate-500">Romper el bloqueo de la hoja en blanco con estrategias lógicas de pre-escritura, redacción y auto-revisión.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Interactive Map / Roadmap Navigator -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 flex items-center mb-3">
+                            <span class="p-1.5 bg-emerald-50 text-emerald-600 rounded-lg mr-2.5">
+                                <i class="fa-solid fa-map"></i>
+                            </span>
+                            Tu Mapa de Viaje
+                        </h3>
+                        <p class="text-xs text-slate-500 mb-4">Haz clic en cualquier fase para saltar directamente al contenido:</p>
+                        
+                        <!-- Mini interactive timeline menu -->
+                        <div class="space-y-3">
+                            <button onclick="switchTab('modulo1')" class="w-full flex items-center p-3 rounded-xl hover:bg-indigo-50 border border-slate-100 hover:border-indigo-100 transition-all group text-left">
+                                <span class="w-8 h-8 rounded-lg bg-indigo-50 group-hover:bg-indigo-100 text-indigo-600 font-bold flex items-center justify-center text-xs mr-3 transition-colors">I</span>
+                                <div>
+                                    <h4 class="text-xs font-semibold text-slate-900">Concepto de Redacción</h4>
+                                    <span class="text-[10px] text-slate-400">45 minutos</span>
+                                </div>
+                                <i class="fa-solid fa-chevron-right ml-auto text-slate-400 group-hover:text-indigo-600 transition-colors"></i>
+                            </button>
+                            <button onclick="switchTab('modulo2')" class="w-full flex items-center p-3 rounded-xl hover:bg-indigo-50 border border-slate-100 hover:border-indigo-100 transition-all group text-left">
+                                <span class="w-8 h-8 rounded-lg bg-indigo-50 group-hover:bg-indigo-100 text-indigo-600 font-bold flex items-center justify-center text-xs mr-3 transition-colors">II</span>
+                                <div>
+                                    <h4 class="text-xs font-semibold text-slate-900">Cualidades de la Escritura</h4>
+                                    <span class="text-[10px] text-slate-400">60 minutos</span>
+                                </div>
+                                <i class="fa-solid fa-chevron-right ml-auto text-slate-400 group-hover:text-indigo-600 transition-colors"></i>
+                            </button>
+                            <button onclick="switchTab('modulo3')" class="w-full flex items-center p-3 rounded-xl hover:bg-indigo-50 border border-slate-100 hover:border-indigo-100 transition-all group text-left">
+                                <span class="w-8 h-8 rounded-lg bg-indigo-50 group-hover:bg-indigo-100 text-indigo-600 font-bold flex items-center justify-center text-xs mr-3 transition-colors">III</span>
+                                <div>
+                                    <h4 class="text-xs font-semibold text-slate-900">Fases del Escribir</h4>
+                                    <span class="text-[10px] text-slate-400">60 minutos</span>
+                                </div>
+                                <i class="fa-solid fa-chevron-right ml-auto text-slate-400 group-hover:text-indigo-600 transition-colors"></i>
+                            </button>
+                            <button onclick="switchTab('modulo4')" class="w-full flex items-center p-3 rounded-xl hover:bg-indigo-50 border border-slate-100 hover:border-indigo-100 transition-all group text-left">
+                                <span class="w-8 h-8 rounded-lg bg-indigo-50 group-hover:bg-indigo-100 text-indigo-600 font-bold flex items-center justify-center text-xs mr-3 transition-colors">IV</span>
+                                <div>
+                                    <h4 class="text-xs font-semibold text-slate-900">Laboratorio de Sintaxis</h4>
+                                    <span class="text-[10px] text-slate-400">75 minutos</span>
+                                </div>
+                                <i class="fa-solid fa-chevron-right ml-auto text-slate-400 group-hover:text-indigo-600 transition-colors"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 1: MÓDULO I - EL CONCEPTO DE REDACCIÓN -->
+        <section id="pane-modulo1" class="tab-pane hidden space-y-8 animate-fadeIn">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-100">
+                <div class="flex items-center space-x-3 mb-6">
+                    <span class="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
+                        <i class="fa-solid fa-lightbulb text-xl"></i>
+                    </span>
+                    <div>
+                        <span class="text-xs font-semibold text-indigo-600 uppercase tracking-widest block">Módulo 1: III.1 & III.1.1</span>
+                        <h2 class="text-2xl font-extrabold text-slate-900">Concepto de Redacción</h2>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-4">
+                        <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                            La palabra <strong>redacción</strong> proviene del latín <em class="text-indigo-600 font-medium">redactio</em>, que significa la acción de recopilar o poner en orden. Redactar es mucho más que transcribir el pensamiento; es un acto intelectual complejo de traducción simbólica. 
+                        </p>
+                        <div class="p-4 bg-amber-50 rounded-2xl border border-amber-100 text-amber-900 text-xs sm:text-sm">
+                            <h4 class="font-bold flex items-center mb-1">
+                                <i class="fa-solid fa-triangle-exclamation mr-1.5 text-amber-600"></i> El Error del Novato: "Escribo como hablo"
+                            </h4>
+                            <p class="text-slate-700 leading-relaxed">
+                                El habla humana es espontánea, redundante y contextual. La escritura es estructurada, planificada y permanente. Intentar reproducir el habla literal en tus tareas universitarias causará confusión inmediata.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Definition Card -->
+                    <div class="bg-slate-900 text-white rounded-2xl p-6 shadow-xl relative overflow-hidden">
+                        <div class="absolute right-0 top-0 w-32 h-32 bg-indigo-500/10 rounded-full filter blur-2xl"></div>
+                        <h3 class="text-emerald-400 font-bold text-xs uppercase tracking-wider mb-2">Definición Operativa</h3>
+                        <blockquote class="text-base sm:text-lg italic font-medium leading-relaxed">
+                            "Redactar es el proceso de codificación escrita estructurada que convierte ideas no lineales en una secuencia de oraciones lógicas, ordenadas y adaptadas a un público receptor específico."
+                        </blockquote>
+                        <div class="mt-6 border-t border-slate-800 pt-4 flex justify-between items-center text-xs text-slate-400">
+                            <span>- Didáctica de la Escritura para Educación Superior</span>
+                            <span class="flex items-center text-indigo-300">
+                                <i class="fa-regular fa-bookmark mr-1"></i> Memorizar
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Match Definition Interactive Mini-game -->
+                <div class="mt-12 bg-indigo-50/50 rounded-2xl p-6 border border-indigo-100">
+                    <h3 class="text-base font-bold text-slate-900 mb-2 flex items-center">
+                        <i class="fa-solid fa-gamepad text-indigo-600 mr-2"></i> Mini-Reto: Elige la Metáfora Correcta
+                    </h3>
+                    <p class="text-slate-600 text-xs sm:text-sm mb-4">¿Cuál de estas imágenes ilustra mejor la naturaleza de la redacción académica?</p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <button onclick="checkMetaphor(1)" class="metaphor-opt p-4 bg-white hover:bg-indigo-50 border border-slate-200 rounded-xl hover:border-indigo-300 transition-all text-left group">
+                            <div class="w-8 h-8 rounded-lg bg-slate-100 group-hover:bg-indigo-100 text-slate-600 group-hover:text-indigo-600 flex items-center justify-center mb-3 transition-all">
+                                <i class="fa-solid fa-microphone"></i>
+                            </div>
+                            <h4 class="text-xs font-bold text-slate-900 mb-1">El Micrófono Abierto</h4>
+                            <p class="text-[11px] text-slate-500 leading-relaxed">Dejar fluir la conciencia y que el papel capte tal cual piensas.</p>
+                        </button>
+                        <button onclick="checkMetaphor(2)" class="metaphor-opt p-4 bg-white hover:bg-emerald-50 border border-slate-200 rounded-xl hover:border-emerald-300 transition-all text-left group">
+                            <div class="w-8 h-8 rounded-lg bg-slate-100 group-hover:bg-emerald-100 text-slate-600 group-hover:text-emerald-600 flex items-center justify-center mb-3 transition-all">
+                                <i class="fa-solid fa-compass-drafting"></i>
+                            </div>
+                            <h4 class="text-xs font-bold text-slate-900 mb-1">La Arquitectura Textual</h4>
+                            <p class="text-[11px] text-slate-500 leading-relaxed">Diseñar planos, cimentar ideas, y ensamblar oraciones con precisión lógica.</p>
+                        </button>
+                        <button onclick="checkMetaphor(3)" class="metaphor-opt p-4 bg-white hover:bg-indigo-50 border border-slate-200 rounded-xl hover:border-indigo-300 transition-all text-left group">
+                            <div class="w-8 h-8 rounded-lg bg-slate-100 group-hover:bg-indigo-100 text-slate-600 group-hover:text-indigo-600 flex items-center justify-center mb-3 transition-all">
+                                <i class="fa-solid fa-copy"></i>
+                            </div>
+                            <h4 class="text-xs font-bold text-slate-900 mb-1">El Espejo</h4>
+                            <p class="text-[11px] text-slate-500 leading-relaxed">Copiar información encontrada en internet dándole tu propio formato visual.</p>
+                        </button>
+                    </div>
+
+                    <!-- Metaphor Feedback box -->
+                    <div id="metaphor-feedback" class="mt-4 hidden p-4 rounded-xl border transition-all duration-300"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 2: MÓDULO II - CUALIDADES DE LA REDACCIÓN -->
+        <section id="pane-modulo2" class="tab-pane hidden space-y-8 animate-fadeIn">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-100">
+                <div class="flex items-center space-x-3 mb-6">
+                    <span class="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
+                        <i class="fa-solid fa-wand-magic-sparkles text-xl"></i>
+                    </span>
+                    <div>
+                        <span class="text-xs font-semibold text-indigo-600 uppercase tracking-widest block">Módulo 2: III.2</span>
+                        <h2 class="text-2xl font-extrabold text-slate-900">Cualidades de la Redacción</h2>
+                    </div>
+                </div>
+
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-6">
+                    Para que un texto califique como formal y académico, debe poseer cinco superpoderes (cualidades esenciales). Si falta uno solo, el puente de la comunicación se derrumba.
+                </p>
+
+                <!-- Interactive Accordion Tabs for the 5 Qualities -->
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-4">
+                    <!-- Cards serving as click selectors -->
+                    <button onclick="selectQuality('claridad')" id="q-claridad" class="quality-tab p-4 bg-indigo-600 text-white rounded-2xl border border-indigo-200 transition-all text-left flex flex-col justify-between h-36 shadow-lg shadow-indigo-100">
+                        <i class="fa-regular fa-eye text-xl"></i>
+                        <div>
+                            <h4 class="text-sm font-bold block">1. Claridad</h4>
+                            <span class="text-[10px] text-indigo-100 block">De comprensión inmediata</span>
+                        </div>
+                    </button>
+                    <button onclick="selectQuality('concision')" id="q-concision" class="quality-tab p-4 bg-white hover:bg-slate-50 text-slate-800 rounded-2xl border border-slate-200 transition-all text-left flex flex-col justify-between h-36">
+                        <i class="fa-solid fa-scissors text-xl text-indigo-600"></i>
+                        <div>
+                            <h4 class="text-sm font-bold block">2. Concisión</h4>
+                            <span class="text-[10px] text-slate-400 block">Ir directo al grano</span>
+                        </div>
+                    </button>
+                    <button onclick="selectQuality('coherencia')" id="q-coherencia" class="quality-tab p-4 bg-white hover:bg-slate-50 text-slate-800 rounded-2xl border border-slate-200 transition-all text-left flex flex-col justify-between h-36">
+                        <i class="fa-solid fa-brain text-xl text-indigo-600"></i>
+                        <div>
+                            <h4 class="text-sm font-bold block">3. Coherencia</h4>
+                            <span class="text-[10px] text-slate-400 block">Lógica del todo</span>
+                        </div>
+                    </button>
+                    <button onclick="selectQuality('cohesion')" id="q-cohesion" class="quality-tab p-4 bg-white hover:bg-slate-50 text-slate-800 rounded-2xl border border-slate-200 transition-all text-left flex flex-col justify-between h-36">
+                        <i class="fa-solid fa-link text-xl text-indigo-600"></i>
+                        <div>
+                            <h4 class="text-sm font-bold block">4. Cohesión</h4>
+                            <span class="text-[10px] text-slate-400 block">Enlace de palabras</span>
+                        </div>
+                    </button>
+                    <button onclick="selectQuality('adecuacion')" id="q-adecuacion" class="quality-tab p-4 bg-white hover:bg-slate-50 text-slate-800 rounded-2xl border border-slate-200 transition-all text-left flex flex-col justify-between h-36">
+                        <i class="fa-solid fa-crosshairs text-xl text-indigo-600"></i>
+                        <div>
+                            <h4 class="text-sm font-bold block">5. Adecuación</h4>
+                            <span class="text-[10px] text-slate-400 block">Adaptación al lector</span>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Interactive Display of Selected Quality details -->
+                <div class="mt-6 bg-slate-900 text-white rounded-2xl p-6 shadow-md" id="quality-detail-box">
+                    <h3 id="qd-title" class="text-lg font-bold text-emerald-400 mb-2">Claridad</h3>
+                    <p id="qd-desc" class="text-slate-300 text-sm mb-6 leading-relaxed">
+                        Un escrito es claro cuando cualquier lector de nivel medio puede descifrar sin esfuerzo el mensaje que el autor quiso comunicar. No da lugar a interpretaciones alternativas ni requiere una segunda lectura.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-red-950/40 p-4 rounded-xl border border-red-900/30">
+                            <span class="text-red-400 text-xs font-bold uppercase tracking-wider block mb-2">⚠️ Así se ve el error (Antiejemplo):</span>
+                            <p id="qd-bad" class="text-xs text-slate-300 italic">"Se vende auto de un solo dueño de color verde con una puerta raspada que vive en la esquina." (¿Quién vive en la esquina? ¿El dueño, el auto o la puerta?)</p>
+                        </div>
+                        <div class="bg-emerald-950/40 p-4 rounded-xl border border-emerald-900/30">
+                            <span class="text-emerald-400 text-xs font-bold uppercase tracking-wider block mb-2">✓ Corrección Académica:</span>
+                            <p id="qd-good" class="text-xs text-slate-300 font-semibold">"El dueño, que vive en la esquina, vende un automóvil de color verde que tiene una puerta raspada."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Drag & Drop / Click Match Game -->
+                <div class="mt-12 border-t border-slate-100 pt-8">
+                    <h3 class="text-lg font-extrabold text-slate-900 mb-2 flex items-center">
+                        <span class="p-1.5 bg-amber-50 text-amber-600 rounded-lg mr-2">
+                            <i class="fa-solid fa-gamepad"></i>
+                        </span>
+                        Laboratorio Anti-Vicios: ¡Identifica el Error!
+                    </h3>
+                    <p class="text-slate-600 text-xs sm:text-sm mb-6">
+                        Haz clic en una frase problemática y luego selecciona qué cualidad está violando para arreglarla.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Left Panel: Problematic sentences -->
+                        <div class="space-y-3">
+                            <h4 class="text-xs font-bold uppercase text-slate-400 tracking-wider">Frases con Vicios</h4>
+                            <div onclick="selectMatchCard('sentence', 1, this)" class="match-card p-4 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 cursor-pointer transition-all text-xs font-medium text-slate-700 relative">
+                                "En mi opinión personal opino que el ensayo de hoy en día hoy es muy necesario en mi parecer."
+                                <span class="absolute top-2 right-2 text-slate-300 group-hover:text-indigo-400"><i class="fa-regular fa-circle"></i></span>
+                            </div>
+                            <div onclick="selectMatchCard('sentence', 2, this)" class="match-card p-4 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 cursor-pointer transition-all text-xs font-medium text-slate-700 relative">
+                                "La fotosíntesis es fundamental. Por lo tanto, me gusta ir al cine los fines de semana a comer palomitas."
+                                <span class="absolute top-2 right-2 text-slate-300 group-hover:text-indigo-400"><i class="fa-regular fa-circle"></i></span>
+                            </div>
+                            <div onclick="selectMatchCard('sentence', 3, this)" class="match-card p-4 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 cursor-pointer transition-all text-xs font-medium text-slate-700 relative">
+                                "Qué onda profe, le ando mandando mi tarea por aca porque andaba con weba el sistema de la u."
+                                <span class="absolute top-2 right-2 text-slate-300 group-hover:text-indigo-400"><i class="fa-regular fa-circle"></i></span>
+                            </div>
+                        </div>
+
+                        <!-- Right Panel: Qualities Violated -->
+                        <div class="space-y-3 flex flex-col justify-end">
+                            <h4 class="text-xs font-bold uppercase text-slate-400 tracking-wider">Cualidad Violada</h4>
+                            <div onclick="selectMatchCard('quality', 1, this)" class="match-card p-4 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 cursor-pointer transition-all text-xs font-bold text-slate-900 relative">
+                                Concisión (Hay redundancia excesiva e inútil)
+                            </div>
+                            <div onclick="selectMatchCard('quality', 2, this)" class="match-card p-4 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 cursor-pointer transition-all text-xs font-bold text-slate-900 relative">
+                                Coherencia (No hay conexión lógica entre ideas)
+                            </div>
+                            <div onclick="selectMatchCard('quality', 3, this)" class="match-card p-4 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 cursor-pointer transition-all text-xs font-bold text-slate-900 relative">
+                                Adecuación (El lenguaje informal viola el registro académico)
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Match Feedback Box -->
+                    <div id="match-game-feedback" class="mt-6 p-4 rounded-xl hidden text-sm font-semibold transition-all duration-300 text-center"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 3: MÓDULO III - FASES DE LA REDACCIÓN -->
+        <section id="pane-modulo3" class="tab-pane hidden space-y-8 animate-fadeIn">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-100">
+                <div class="flex items-center space-x-3 mb-6">
+                    <span class="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
+                        <i class="fa-solid fa-route text-xl"></i>
+                    </span>
+                    <div>
+                        <span class="text-xs font-semibold text-indigo-600 uppercase tracking-widest block">Módulo 3: III.3</span>
+                        <h2 class="text-2xl font-extrabold text-slate-900">Fases del Escribir</h2>
+                    </div>
+                </div>
+
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-6">
+                    Un escrito robusto no se escribe de un solo tirón. El buen escritor sabe que debe transitar por un proceso iterativo de tres fases bien marcadas. No intentes saltártelas.
+                </p>
+
+                <!-- Interactive Phases Timeline Stepper -->
+                <div class="relative">
+                    <!-- Progress connector line -->
+                    <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 top-10 h-1 bg-slate-100 w-4/5 -z-10"></div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+                        <!-- Step 1: Pre-escritura -->
+                        <div class="bg-indigo-50/50 p-6 rounded-2xl border border-indigo-100 relative">
+                            <span class="absolute -top-4 left-6 bg-indigo-600 text-white text-xs font-extrabold px-3 py-1 rounded-full shadow-md">Fase 1: III.3.1</span>
+                            <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-xl font-black mb-4">
+                                <i class="fa-regular fa-lightbulb"></i>
+                            </div>
+                            <h3 class="text-base font-extrabold text-indigo-900 mb-2">Planeación o Pre-escritura</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                                Es el momento de la cartografía mental. Antes de redactar, debes saber a dónde vas.
+                            </p>
+                            <ul class="space-y-2 text-xs text-slate-500">
+                                <li class="flex items-center"><i class="fa-solid fa-check text-indigo-600 mr-2"></i> Lluvia de ideas inicial.</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-indigo-600 mr-2"></i> Selección de fuentes confiables.</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-indigo-600 mr-2"></i> Estructura lógica en esquema.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Step 2: Escritura -->
+                        <div class="bg-emerald-50/50 p-6 rounded-2xl border border-emerald-100 relative">
+                            <span class="absolute -top-4 left-6 bg-emerald-600 text-white text-xs font-extrabold px-3 py-1 rounded-full shadow-md">Fase 2: III.3.2</span>
+                            <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl font-black mb-4">
+                                <i class="fa-solid fa-pen-nib"></i>
+                            </div>
+                            <h3 class="text-base font-extrabold text-emerald-900 mb-2">Escritura o Redacción</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                                El momento de dar forma material a tus ideas. Deja fluir el texto basándote en tu mapa previo.
+                            </p>
+                            <ul class="space-y-2 text-xs text-slate-500">
+                                <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2"></i> Redacción del primer borrador.</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2"></i> Enlazar ideas con nexos fuertes.</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2"></i> Sin buscar perfección inmediata.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Step 3: Pos-escritura -->
+                        <div class="bg-amber-50/50 p-6 rounded-2xl border border-amber-100 relative">
+                            <span class="absolute -top-4 left-6 bg-amber-600 text-white text-xs font-extrabold px-3 py-1 rounded-full shadow-md">Fase 3: III.3.3</span>
+                            <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl font-black mb-4">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </div>
+                            <h3 class="text-base font-extrabold text-amber-900 mb-2">Revisión o Pos-escritura</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                                El proceso donde ocurre la magia real. Pulir y podar los excedentes.
+                            </p>
+                            <ul class="space-y-2 text-xs text-slate-500">
+                                <li class="flex items-center"><i class="fa-solid fa-check text-amber-600 mr-2"></i> Lectura crítica en voz alta.</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-amber-600 mr-2"></i> Corrección ortográfica y sintáctica.</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-amber-600 mr-2"></i> Asegurar cohesión del texto global.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Simulation of Text Evolution -->
+                <div class="mt-12 bg-slate-900 text-white rounded-2xl p-6 shadow-xl">
+                    <h3 class="text-base font-bold text-emerald-400 mb-2 flex items-center">
+                        <i class="fa-solid fa-hourglass-start mr-2"></i> Simula la Evolución de un Párrafo Universitario
+                    </h3>
+                    <p class="text-xs text-slate-400 mb-6">Mueve la barra deslizante para observar cómo un borrador cambia radicalmente de una fase a otra:</p>
+
+                    <!-- Interactive Slider -->
+                    <div class="relative mb-6">
+                        <input type="range" min="1" max="3" value="1" id="phase-slider" class="w-full accent-emerald-400 cursor-pointer h-2 bg-slate-800 rounded-lg" oninput="updateSliderPhase(this.value)">
+                        <div class="flex justify-between text-xs font-bold text-slate-500 mt-2 px-2">
+                            <span>Pre-escritura (Idea / Esquema)</span>
+                            <span>Borrador Inicial</span>
+                            <span>Texto Pulido y Revisado</span>
+                        </div>
+                    </div>
+
+                    <!-- Sandbox View showing visual rendering of phase -->
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800">
+                        <div class="flex justify-between items-center mb-4 border-b border-slate-800 pb-2">
+                            <span id="phase-label" class="text-xs font-bold uppercase tracking-widest text-indigo-400">FASE 1: PRE-ESCRITURA</span>
+                            <span id="phase-difficulty" class="text-[10px] text-slate-500 bg-slate-900 px-2 py-1 rounded">Nivel Mental</span>
+                        </div>
+                        <div class="min-h-32 flex flex-col justify-center">
+                            <p id="phase-content-main" class="text-sm italic leading-relaxed text-slate-300">
+                                "Esquema preliminar: Ideas clave: 1. Calentamiento global afecta cultivos. 2. Maíz en México vulnerable. 3. Necesitamos soluciones sustentables pronto para el abasto alimentario de la población."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 4: MÓDULO IV - SINTAXIS Y ORDEN SINTÁCTICO -->
+        <section id="pane-modulo4" class="tab-pane hidden space-y-8 animate-fadeIn">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-100">
+                <div class="flex items-center space-x-3 mb-6">
+                    <span class="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
+                        <i class="fa-solid fa-circle-nodes text-xl"></i>
+                    </span>
+                    <div>
+                        <span class="text-xs font-semibold text-indigo-600 uppercase tracking-widest block">Módulo 4: III.4</span>
+                        <h2 class="text-2xl font-extrabold text-slate-900">Sintaxis: La Arquitectura del Significado</h2>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-8">
+                    <div class="space-y-4">
+                        <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                            La <strong>sintaxis</strong> es la rama de la gramática que enseña a coordinar y unir las palabras para formar oraciones coherentes. En español, contamos con flexibilidad de orden, pero toda alteración drástica puede romper el significado.
+                        </p>
+                        <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                            La estructura canónica del español es: <br>
+                            <span class="font-extrabold text-indigo-600 bg-indigo-50 px-2 py-1 rounded inline-block text-xs sm:text-sm mt-1">Sujeto + Verbo + Objeto Directo + Objeto Indirecto + Complemento Circunstancial</span>
+                        </p>
+                    </div>
+
+                    <div class="bg-amber-50 rounded-2xl p-5 border border-amber-100">
+                        <h4 class="text-xs font-bold uppercase text-amber-800 tracking-wider mb-2 flex items-center">
+                            <i class="fa-solid fa-circle-exclamation mr-1.5"></i> Cuidado con el Hipérbaton Involuntario
+                        </h4>
+                        <p class="text-xs text-slate-700 leading-relaxed mb-2">
+                            A veces, por querer sonar "elegantes", alteramos la sintaxis natural y terminamos redactando textos incomprensibles dignos del maestro Yoda:
+                        </p>
+                        <p class="text-xs italic text-slate-600 font-medium">
+                            "A la biblioteca los libros que de investigación eran, el estudiante cansado los llevó ayer."
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Syntactic Laboratory Word Ordering Game -->
+                <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200">
+                    <h3 class="text-base font-extrabold text-slate-900 mb-2 flex items-center">
+                        <i class="fa-solid fa-gamepad text-indigo-600 mr-2"></i> Reto Práctico: Desafío de Ordenamiento Sintáctico
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4">
+                        Ordena las siguientes palabras haciendo clic en ellas en el orden adecuado para estructurar una oración académica perfecta.
+                    </p>
+
+                    <!-- Word Buttons Pool -->
+                    <div id="word-pool" class="flex flex-wrap gap-2.5 mb-6 p-4 bg-white rounded-xl border border-slate-200 min-h-16 items-center">
+                        <!-- Populated by JS -->
+                    </div>
+
+                    <!-- Built/Ordered Sentence Panel -->
+                    <div class="bg-slate-900 text-white p-4 rounded-xl min-h-14 flex flex-wrap gap-1 items-center relative mb-4">
+                        <span class="absolute -top-3.5 left-4 bg-slate-800 text-slate-400 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded">Tu Oración en Construcción</span>
+                        <div id="built-sentence" class="flex flex-wrap gap-1.5 w-full text-sm font-semibold">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Game Actions -->
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="checkSyntaxOrder()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-4 py-2.5 rounded-xl text-xs transition-all flex items-center">
+                            <i class="fa-solid fa-circle-check mr-1.5"></i> Validar Orden Sintáctico
+                        </button>
+                        <button onclick="resetSyntaxGame()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-4 py-2.5 rounded-xl text-xs transition-all flex items-center">
+                            <i class="fa-solid fa-rotate-left mr-1.5"></i> Reiniciar Laboratorio
+                        </button>
+                    </div>
+
+                    <!-- Success Feedback Box -->
+                    <div id="syntax-game-feedback" class="mt-4 hidden p-4 rounded-xl border text-xs sm:text-sm font-semibold transition-all duration-300"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 5: ACTIVIDAD INTEGRADORA FINAL -->
+        <section id="pane-integradora" class="tab-pane hidden space-y-8 animate-fadeIn">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-100">
+                <div class="flex items-center space-x-3 mb-6">
+                    <span class="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
+                        <i class="fa-solid fa-trophy text-xl"></i>
+                    </span>
+                    <div>
+                        <span class="text-xs font-semibold text-indigo-600 uppercase tracking-widest block">Proyecto Final Académico</span>
+                        <h2 class="text-2xl font-extrabold text-slate-900">Actividad Integradora Final</h2>
+                    </div>
+                </div>
+
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-6">
+                    Ha llegado el momento de consolidar tu aprendizaje. Te retamos a resolver uno de los siguientes tres proyectos según tu estilo preferido de aprendizaje:
+                </p>
+
+                <!-- Options tabs (Tabs inside tab) -->
+                <div class="flex flex-wrap gap-3 mb-6">
+                    <button onclick="selectProjectOption('opcionA')" id="proj-btn-opcionA" class="project-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-indigo-600 text-white shadow-md shadow-indigo-100">
+                        <i class="fa-regular fa-file-lines mr-1.5"></i> Opción A: Ensayo Académico Corto
+                    </button>
+                    <button onclick="selectProjectOption('opcionB')" id="proj-btn-opcionB" class="project-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-white text-slate-600 hover:bg-slate-50 border border-slate-200">
+                        <i class="fa-solid fa-microphone mr-1.5"></i> Opción B: Guion de Pitch Oral
+                    </button>
+                    <button onclick="selectProjectOption('opcionC')" id="proj-btn-opcionC" class="project-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-white text-slate-600 hover:bg-slate-50 border border-slate-200">
+                        <i class="fa-solid fa-triangle-exclamation mr-1.5"></i> Opción C: Resolución de Caso Práctico
+                    </button>
+                </div>
+
+                <!-- Interactive prompt display -->
+                <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 mb-8">
+                    <div id="proj-details" class="space-y-4">
+                        <!-- Populated by JS dynamic switch -->
+                    </div>
+
+                    <!-- Live word counter text editor -->
+                    <div class="mt-6">
+                        <label for="student-submission" class="block text-xs font-bold uppercase text-slate-500 mb-2">Escribe tu texto aquí:</label>
+                        <textarea id="student-submission" oninput="updateWordCounter()" class="w-full h-48 p-4 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm font-normal" placeholder="Comienza a redactar tu propuesta cuidando la sintaxis y las cualidades básicas de la redacción..."></textarea>
+                        
+                        <div class="flex flex-wrap justify-between items-center mt-3">
+                            <span class="text-xs text-slate-500 font-medium">Contador de palabras: <strong id="word-count" class="text-slate-800">0</strong> / 300 palabras recomendadas.</span>
+                            <span id="word-status" class="text-[10px] uppercase font-bold text-red-500 bg-red-50 px-2 py-0.5 rounded">Fuera de rango (mínimo 150)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Rubric & Self-Evaluation -->
+                <div>
+                    <h3 class="text-lg font-extrabold text-slate-900 mb-2">Rúbrica Interactiva de Autoevaluación</h3>
+                    <p class="text-xs text-slate-500 mb-6">
+                        Haz clic en cada nivel de logro según sientas que has cumplido las cualidades en tu propuesta. ¡Mira tu puntaje en tiempo real!
+                    </p>
+
+                    <div class="space-y-4">
+                        <!-- Rubric item 1: Claridad -->
+                        <div class="border border-slate-200 rounded-xl p-4 bg-white shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div class="max-w-md">
+                                <h4 class="text-sm font-bold text-slate-900">Claridad y Concisión</h4>
+                                <p class="text-xs text-slate-500">¿El texto carece de redundancias y se comprende sin ambigüedad en su primera lectura?</p>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="selectRubricScore('claridad', 5, this)" class="rubric-btn-claridad bg-slate-100 text-slate-700 hover:bg-indigo-50 text-xs px-3 py-2 rounded-lg font-semibold transition-all">Excelente (5 pts)</button>
+                                <button onclick="selectRubricScore('claridad', 3, this)" class="rubric-btn-claridad bg-slate-100 text-slate-700 hover:bg-indigo-50 text-xs px-3 py-2 rounded-lg font-semibold transition-all">Aceptable (3 pts)</button>
+                                <button onclick="selectRubricScore('claridad', 1, this)" class="rubric-btn-claridad bg-slate-100 text-slate-700 hover:bg-indigo-50 text-xs px-3 py-2 rounded-lg font-semibold transition-all">Requiere Mejorar (1 pt)</button>
+                            </div>
+                        </div>
+
+                        <!-- Rubric item 2: Sintaxis -->
+                        <div class="border border-slate-200 rounded-xl p-4 bg-white shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div class="max-w-md">
+                                <h4 class="text-sm font-bold text-slate-900">Sintaxis y Gramática</h4>
+                                <p class="text-xs text-slate-500">¿Las ideas se estructuran en base a un orden sintáctico claro e integrando cohesión léxica?</p>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="selectRubricScore('sintaxis', 5, this)" class="rubric-btn-sintaxis bg-slate-100 text-slate-700 hover:bg-indigo-50 text-xs px-3 py-2 rounded-lg font-semibold transition-all">Excelente (5 pts)</button>
+                                <button onclick="selectRubricScore('sintaxis', 3, this)" class="rubric-btn-sintaxis bg-slate-100 text-slate-700 hover:bg-indigo-50 text-xs px-3 py-2 rounded-lg font-semibold transition-all">Aceptable (3 pts)</button>
+                                <button onclick="selectRubricScore('sintaxis', 1, this)" class="rubric-btn-sintaxis bg-slate-100 text-slate-700 hover:bg-indigo-50 text-xs px-3 py-2 rounded-lg font-semibold transition-all">Requiere Mejorar (1 pt)</button>
+                            </div>
+                        </div>
+
+                        <!-- Rubric item 3: Fases -->
+                        <div class="border border-slate-200 rounded-xl p-4 bg-white shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div class="max-w-md">
+                                <h4 class="text-sm font-bold text-slate-900">Fases y Proceso</h4>
+                                <p class="text-xs text-slate-500">¿Realizaste el borrador e identificaste elementos clave para su posterior revisión?</p>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="selectRubricScore('fases', 5, this)" class="rubric-btn-fases bg-slate-100 text-slate-700 hover:bg-indigo-50 text-xs px-3 py-2 rounded-lg font-semibold transition-all">Excelente (5 pts)</button>
+                                <button onclick="selectRubricScore('fases', 3, this)" class="rubric-btn-fases bg-slate-100 text-slate-700 hover:bg-indigo-50 text-xs px-3 py-2 rounded-lg font-semibold transition-all">Aceptable (3 pts)</button>
+                                <button onclick="selectRubricScore('fases', 1, this)" class="rubric-btn-fases bg-slate-100 text-slate-700 hover:bg-indigo-50 text-xs px-3 py-2 rounded-lg font-semibold transition-all">Requiere Mejorar (1 pt)</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Total score panel & Submit -->
+                    <div class="mt-8 bg-slate-900 text-white rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+                        <div>
+                            <span class="text-xs text-slate-400 block uppercase font-bold tracking-wider mb-1">Tu Autocalificación Estimada</span>
+                            <div class="flex items-baseline space-x-1">
+                                <span id="rubric-total" class="text-4xl font-extrabold text-emerald-400">0</span>
+                                <span class="text-sm text-slate-400">/ 15 puntos posibles</span>
+                            </div>
+                        </div>
+                        <button onclick="submitFinalWork()" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-3.5 rounded-xl shadow-lg shadow-emerald-950/20 text-sm transition-all flex items-center justify-center">
+                            <i class="fa-solid fa-cloud-arrow-up mr-2"></i> Enviar mi Proyecto Académico
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 6: DOCENTE / EVALUACIÓN & ANALÍTICAS -->
+        <section id="pane-docente" class="tab-pane hidden space-y-8 animate-fadeIn">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-100">
+                <div class="flex items-center space-x-3 mb-6">
+                    <span class="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
+                        <i class="fa-solid fa-chalkboard-user text-xl"></i>
+                    </span>
+                    <div>
+                        <span class="text-xs font-semibold text-indigo-600 uppercase tracking-widest block">Espacio de Control Docente</span>
+                        <h2 class="text-2xl font-extrabold text-slate-900">Consola de Evaluación Formativa y Sumativa</h2>
+                    </div>
+                </div>
+
+                <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                    Estimado/a docente, en esta sección podrás monitorear el progreso del estudiante en tiempo real, revisar el estado de los juegos y exportar el reporte consolidado de evaluación sumativa.
+                </p>
+
+                <!-- Student Analytics Overview -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="p-5 bg-indigo-50 border border-indigo-100 rounded-2xl">
+                        <span class="text-xs font-semibold text-indigo-500 uppercase tracking-wider block mb-1">Módulos Completados</span>
+                        <div class="flex justify-between items-baseline mt-2">
+                            <span id="doc-modules-complete" class="text-3xl font-extrabold text-indigo-900">0 / 4</span>
+                            <span class="text-xs text-indigo-600 font-medium">Interacciones Activas</span>
+                        </div>
+                    </div>
+                    <div class="p-5 bg-emerald-50 border border-emerald-100 rounded-2xl">
+                        <span class="text-xs font-semibold text-emerald-500 uppercase tracking-wider block mb-1">Puntaje Gamificado</span>
+                        <div class="flex justify-between items-baseline mt-2">
+                            <span id="doc-game-score" class="text-3xl font-extrabold text-emerald-900">0 pts</span>
+                            <span class="text-xs text-emerald-600 font-medium">Desafíos logrados</span>
+                        </div>
+                    </div>
+                    <div class="p-5 bg-amber-50 border border-amber-100 rounded-2xl">
+                        <span class="text-xs font-semibold text-amber-500 uppercase tracking-wider block mb-1">Autoevaluación del Alumno</span>
+                        <div class="flex justify-between items-baseline mt-2">
+                            <span id="doc-rubric-score" class="text-3xl font-extrabold text-amber-900">0 / 15</span>
+                            <span class="text-xs text-amber-600 font-medium">Puntos de Rúbrica</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Learning Metrics & Indicators of Achievement -->
+                <div class="border border-slate-200 rounded-2xl p-6 bg-slate-50 mb-8">
+                    <h3 class="text-base font-extrabold text-slate-900 mb-4">Indicadores de Logro Alcanzados</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <span id="ind-1" class="w-6 h-6 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center text-xs font-bold mr-3 mt-0.5"><i class="fa-solid fa-circle-notch animate-spin"></i></span>
+                            <div>
+                                <h4 class="text-sm font-semibold text-slate-800">Conceptualización de la Escritura (III.1 & III.1.1)</h4>
+                                <p class="text-xs text-slate-500">Reconoce que la escritura es un proceso planificado, no espontáneo.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span id="ind-2" class="w-6 h-6 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center text-xs font-bold mr-3 mt-0.5"><i class="fa-solid fa-circle-notch animate-spin"></i></span>
+                            <div>
+                                <h4 class="text-sm font-semibold text-slate-800">Identificación de Cualidades y Vicios de Redacción (III.2)</h4>
+                                <p class="text-xs text-slate-500">Distingue redundancia de concisión, e informalidad de adecuación.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span id="ind-3" class="w-6 h-6 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center text-xs font-bold mr-3 mt-0.5"><i class="fa-solid fa-circle-notch animate-spin"></i></span>
+                            <div>
+                                <h4 class="text-sm font-semibold text-slate-800">Estructura y Sintaxis del Español (III.4)</h4>
+                                <p class="text-xs text-slate-500">Ordena adecuadamente oraciones para favorecer la lectura rápida y precisa.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Export Data / Report Card Generator -->
+                <div class="bg-slate-950 text-white rounded-2xl p-6 shadow-xl relative overflow-hidden">
+                    <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-indigo-500/10 rounded-full filter blur-3xl"></div>
+                    <h3 class="text-emerald-400 font-bold text-xs uppercase tracking-wider mb-2">Generar Reporte de Evaluación</h3>
+                    <p class="text-xs text-slate-400 mb-6">Genera un portafolio de evidencias con las respuestas del estudiante para facilitar el vaciado de calificaciones.</p>
+
+                    <!-- Preview of Submission inside Console -->
+                    <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 mb-6">
+                        <span class="text-[10px] uppercase font-bold text-slate-500 block mb-2">Texto Entregado:</span>
+                        <p id="doc-submission-preview" class="text-xs text-slate-300 italic">No se ha registrado ninguna entrega final todavía.</p>
+                    </div>
+
+                    <button onclick="copyDocReport()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-5 py-3 rounded-xl text-xs transition-all flex items-center">
+                        <i class="fa-regular fa-copy mr-2"></i> Copiar Reporte de Desempeño
+                    </button>
+                    
+                    <span id="copy-success-msg" class="text-[10px] text-emerald-400 font-bold mt-2 hidden block"><i class="fa-solid fa-check-double mr-1"></i> ¡Reporte copiado con éxito en el portapapeles!</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Interactive Custom Toast/Modal element for notification -->
+    <div id="custom-toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none bg-slate-900 text-white px-5 py-4 rounded-2xl shadow-xl flex items-center space-x-3 border border-slate-800">
+        <div id="toast-icon-bg" class="bg-emerald-500 text-white p-2 rounded-xl flex items-center justify-center">
+            <i id="toast-icon" class="fa-solid fa-check"></i>
+        </div>
+        <div>
+            <h4 id="toast-title" class="text-xs font-bold text-white">¡Éxito!</h4>
+            <p id="toast-desc" class="text-[11px] text-slate-400 max-w-xs">Tu respuesta se ha guardado correctamente.</p>
+        </div>
+    </div>
+
+    <!-- Script / Game logic section -->
+    <script>
+        // Global Application State Manager
+        const state = {
+            activeTab: 'inicio',
+            completedModules: {
+                inicio: true,
+                modulo1: false,
+                modulo2: false,
+                modulo3: false,
+                modulo4: false,
+                integradora: false
+            },
+            gameScore: 0,
+            selectedMetaphor: null,
+            rubricScore: {
+                claridad: 0,
+                sintaxis: 0,
+                fases: 0
+            },
+            syntaxGame: {
+                words: ["El", "estudiante", "de", "nuevo", "ingreso", "organiza", "correctamente", "las", "ideas", "para", "redactar", "su", "ensayo", "académico."],
+                shuffled: [],
+                built: [],
+                correctOrder: ["El", "estudiante", "de", "nuevo", "ingreso", "organiza", "correctamente", "las", "ideas", "para", "redactar", "su", "ensayo", "académico."]
+            },
+            matchingGame: {
+                selectedSentenceId: null,
+                selectedQualityId: null,
+                score: 0,
+                completedPairs: new Set()
+            },
+            studentSubmissionText: "",
+            selectedProject: "opcionA",
+            projectPrompts: {
+                opcionA: {
+                    title: "Ensayo Académico Corto (150-300 palabras)",
+                    desc: "Redacta una reflexión formal sobre el impacto de la inteligencia artificial en la redacción académica. Debes defender una postura y sustentar tu punto de vista de manera lógica.",
+                    indicators: "Busca tener: Cohesión lógica, nexos explícitos, nula ambigüedad e impecable concordancia de género/número."
+                },
+                opcionB: {
+                    title: "Guion de Video Académico / Pitch (150-300 palabras)",
+                    desc: "Escribe un guion estructurado para un video académico explicativo dirigido a tus compañeros de nuevo ingreso. Explícales detalladamente la importancia de dominar las cualidades básicas de la redacción.",
+                    indicators: "Busca tener: Tono empático, orden sintáctico directo, lenguaje adaptado a un público estudiantil (Adecuación)."
+                },
+                opcionC: {
+                    title: "Caso Práctico: Crisis en Comunicación Académica",
+                    desc: "Resuelve el caso: 'Un científico envía un artículo con pleonasmos, ambigüedades e hipérbaton graves, causando el rechazo de la revista'. Explica detalladamente en un texto estructurado qué fases se omitieron y cómo corregir el problema.",
+                    indicators: "Busca tener: Diagnóstico de la falta de coherencia y falta de revisión previa. Soluciones prácticas claras."
+                }
+            }
+        };
+
+        // Initialize App on Window Load
+        window.onload = function() {
+            // Setup projects
+            selectProjectOption('opcionA');
+            // Setup Syntax Game Words
+            resetSyntaxGame();
+            // Calculate Initial Progress
+            updateProgress();
+            // Load initial values
+            selectQuality('claridad');
+        };
+
+        // Toast Helper
+        function showNotification(title, message, isSuccess = true) {
+            const toast = document.getElementById('custom-toast');
+            const tIconBg = document.getElementById('toast-icon-bg');
+            const tIcon = document.getElementById('toast-icon');
+            const tTitle = document.getElementById('toast-title');
+            const tDesc = document.getElementById('toast-desc');
+
+            tTitle.innerText = title;
+            tDesc.innerText = message;
+
+            if (isSuccess) {
+                tIconBg.className = "bg-emerald-500 text-white p-2 rounded-xl flex items-center justify-center";
+                tIcon.className = "fa-solid fa-circle-check";
+            } else {
+                tIconBg.className = "bg-rose-500 text-white p-2 rounded-xl flex items-center justify-center";
+                tIcon.className = "fa-solid fa-triangle-exclamation";
+            }
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+
+        // Switch Tabs Engine
+        function switchTab(tabId) {
+            // Hide all panes
+            const panes = document.querySelectorAll('.tab-pane');
+            panes.forEach(p => p.classList.add('hidden'));
+
+            // Show selected pane
+            const targetPane = document.getElementById('pane-' + tabId);
+            if (targetPane) {
+                targetPane.classList.remove('hidden');
+            }
+
+            // Update desktop tab styles
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(t => {
+                t.className = "tab-btn px-3 py-2 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all duration-200";
+            });
+            const activeTabElement = document.getElementById('tab-' + tabId);
+            if (activeTabElement) {
+                activeTabElement.className = "tab-btn px-3 py-2 text-sm font-medium rounded-lg text-indigo-600 bg-indigo-50 transition-all duration-200";
+                if (tabId === 'docente') {
+                    activeTabElement.className += " border border-dashed border-indigo-300";
+                }
+            }
+
+            // Update mobile tab styles
+            const mobTabs = document.querySelectorAll('.mobile-tab-btn');
+            mobTabs.forEach(mt => {
+                mt.classList.remove('text-indigo-600');
+                mt.classList.add('text-slate-500');
+            });
+            const activeMobTab = document.getElementById('mob-tab-' + tabId);
+            if (activeMobTab) {
+                activeMobTab.classList.remove('text-slate-500');
+                activeMobTab.classList.add('text-indigo-600');
+            }
+
+            // Mark module as visited
+            if (state.completedModules.hasOwnProperty(tabId)) {
+                state.completedModules[tabId] = true;
+            }
+
+            state.activeTab = tabId;
+            updateProgress();
+            
+            // Scroll to top of window smoothly
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Calculate and Render Progress Bar
+        function updateProgress() {
+            const keys = Object.keys(state.completedModules);
+            const total = keys.length;
+            let completedCount = 0;
+
+            keys.forEach(k => {
+                if (state.completedModules[k]) completedCount++;
+            });
+
+            // Update Progress Percentage
+            const pct = Math.round((completedCount / total) * 100);
+            document.getElementById('progress-percent').innerText = pct + '%';
+            document.getElementById('progress-bar-fill').style.width = pct + '%';
+
+            // Sync values to teacher panel
+            document.getElementById('doc-modules-complete').innerText = `${completedCount - 1} / 5`;
+            document.getElementById('doc-game-score').innerText = `${state.gameScore} pts`;
+            
+            // Render Indicator Badges on Doc Panel
+            updateAchievementIndicators();
+        }
+
+        // Check Metaphor mini-game
+        function checkMetaphor(index) {
+            const feedback = document.getElementById('metaphor-feedback');
+            feedback.classList.remove('hidden');
+
+            const options = document.querySelectorAll('.metaphor-opt');
+            options.forEach(opt => opt.classList.remove('border-indigo-500', 'border-emerald-500', 'border-rose-500'));
+
+            if (index === 2) {
+                state.gameScore += 10;
+                feedback.className = "mt-4 p-4 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-950 text-xs sm:text-sm";
+                feedback.innerHTML = `
+                    <h5 class="font-bold flex items-center mb-1"><i class="fa-solid fa-circle-check mr-1.5 text-emerald-600"></i> ¡Excelente elección!</h5>
+                    <p>Redactar en la universidad es comparable a la <strong>Arquitectura</strong>. Requiere planeación rigurosa de estructuras lógicas antes de comenzar el vaciado del texto final.</p>
+                `;
+                showNotification("¡Excelente!", "Has ganado 10 puntos en tu puntaje formativo.", true);
+            } else if (index === 1) {
+                feedback.className = "mt-4 p-4 rounded-xl border border-rose-200 bg-rose-50 text-rose-950 text-xs sm:text-sm";
+                feedback.innerHTML = `
+                    <h5 class="font-bold flex items-center mb-1"><i class="fa-solid fa-triangle-exclamation mr-1.5 text-rose-600"></i> Inténtalo de nuevo...</h5>
+                    <p>El micrófono abierto representa el habla espontánea. Escribir académicamente requiere filtración, andamiaje, corrección y orden.</p>
+                `;
+            } else {
+                feedback.className = "mt-4 p-4 rounded-xl border border-rose-200 bg-rose-50 text-rose-950 text-xs sm:text-sm";
+                feedback.innerHTML = `
+                    <h5 class="font-bold flex items-center mb-1"><i class="fa-solid fa-triangle-exclamation mr-1.5 text-rose-600"></i> Cuidado...</h5>
+                    <p>El espejo solo refleja pasivamente la información externa. Copiar no es redactar; redactar implica un proceso cognitivo profundo de asimilación.</p>
+                `;
+            }
+            updateProgress();
+        }
+
+        // Quality Details Viewer
+        const qualitiesData = {
+            claridad: {
+                title: "1. Claridad",
+                desc: "Un escrito es claro cuando cualquier lector de nivel medio puede descifrar sin esfuerzo el mensaje que el autor quiso comunicar. No da lugar a interpretaciones alternativas ni requiere una segunda lectura.",
+                bad: '"Se vende auto de un solo dueño de color verde con una puerta raspada que vive en la esquina." (¿Quién vive en la esquina? ¿El dueño o el auto?)',
+                good: '"El dueño, que vive en la esquina, vende un automóvil de color verde que posee una puerta raspada."'
+            },
+            concision: {
+                title: "2. Concisión",
+                desc: "Consiste en usar únicamente las palabras que son indispensables, significativas y eficaces para transmitir la idea sin rodeos, eliminando redundancias y pleonasmos.",
+                bad: '"En mi opinión personal, yo pienso sinceramente que el ensayo escrito es un texto académico indispensable hoy en día actualmente."',
+                good: '"El ensayo constituye una herramienta académica de redacción indispensable en la actualidad."'
+            },
+            coherencia: {
+                title: "3. Coherencia",
+                desc: "Es la conexión e hilación lógica global de las ideas que componen el escrito. Cada párrafo debe contribuir de forma lógica a sustentar el eje temático del texto.",
+                bad: '"La fotosíntesis ayuda a las plantas a nutrirse. Además, ayer fui al cine con mis amigos a comer palomitas."',
+                good: '"La fotosíntesis permite a las plantas sintetizar materia orgánica utilizando luz solar. Por esta razón, son la base ecológica de la cadena alimenticia."'
+            },
+            cohesion: {
+                title: "4. Cohesión",
+                desc: "Es la correcta articulación gramatical de los enunciados entre sí mediante nexos lógicos, pronombres adecuados, signos de puntuación de forma que el texto fluya de manera fluida.",
+                bad: '"María fue a la tienda. Juan compró manzanas. Ella no tenía dinero. Juan le prestó a ella."',
+                good: '"María asistió a la tienda acompañada de Juan para adquirir manzanas. Como ella no poseía dinero, él se ofreció a prestarle la cantidad requerida."'
+            },
+            adecuacion: {
+                title: "5. Adecuación",
+                desc: "Es la capacidad de adaptar el tono del lenguaje, el nivel de formalidad, y el vocabulario al contexto específico y al lector al que nos dirigimos.",
+                bad: '"Oiga profe, le mando la tarea por aca porque andaba de flojo el servidor del campus."',
+                good: '"Estimado profesor: Adjunto mi entrega académica en formato digital debido a que el portal de la institución experimentó una falla técnica."'
+            }
+        };
+
+        function selectQuality(id) {
+            const tabs = document.querySelectorAll('.quality-tab');
+            tabs.forEach(t => {
+                t.className = "quality-tab p-4 bg-white hover:bg-slate-50 text-slate-800 rounded-2xl border border-slate-200 transition-all text-left flex flex-col justify-between h-36";
+                const icon = t.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('text-white');
+                    icon.classList.add('text-indigo-600');
+                }
+            });
+
+            const activeCard = document.getElementById('q-' + id);
+            if (activeCard) {
+                activeCard.className = "quality-tab p-4 bg-indigo-600 text-white rounded-2xl border border-indigo-200 transition-all text-left flex flex-col justify-between h-36 shadow-lg shadow-indigo-100";
+                const icon = activeCard.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('text-indigo-600');
+                    icon.classList.add('text-white');
+                }
+            }
+
+            // Fill Detail Box
+            const data = qualitiesData[id];
+            document.getElementById('qd-title').innerText = data.title;
+            document.getElementById('qd-desc').innerText = data.desc;
+            document.getElementById('qd-bad').innerText = data.bad;
+            document.getElementById('qd-good').innerText = data.good;
+        }
+
+        // Matching Game Qualities
+        function selectMatchCard(type, id, element) {
+            const isSentence = type === 'sentence';
+            const cards = document.querySelectorAll(isSentence ? '.match-card:nth-child(-n+4)' : '.match-card:nth-child(n+5)');
+            
+            // Clear previous visual selection in the group
+            if (isSentence) {
+                state.matchingGame.selectedSentenceId = id;
+                document.querySelectorAll('.match-card').forEach((c, idx) => {
+                    if (idx < 3) c.classList.remove('border-indigo-600', 'bg-indigo-50/20');
+                });
+            } else {
+                state.matchingGame.selectedQualityId = id;
+                document.querySelectorAll('.match-card').forEach((c, idx) => {
+                    if (idx >= 3) c.classList.remove('border-indigo-600', 'bg-indigo-50/20');
+                });
+            }
+
+            element.classList.add('border-indigo-600', 'bg-indigo-50/20');
+
+            // Evaluate Match if both selected
+            if (state.matchingGame.selectedSentenceId !== null && state.matchingGame.selectedQualityId !== null) {
+                const sId = state.matchingGame.selectedSentenceId;
+                const qId = state.matchingGame.selectedQualityId;
+                const gameFeedback = document.getElementById('match-game-feedback');
+                gameFeedback.classList.remove('hidden');
+
+                if (sId === qId) {
+                    // Success Match
+                    state.matchingGame.completedPairs.add(sId);
+                    state.gameScore += 15;
+                    gameFeedback.className = "mt-6 p-4 rounded-xl text-center bg-emerald-50 text-emerald-900 border border-emerald-200 text-xs sm:text-sm";
+                    gameFeedback.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i> ¡Excelente coincidencia! Has mitigado este vicio gramatical con éxito. (+15 puntos)`;
+                    showNotification("¡Emparejamiento Correcto!", "Mitigaste un vicio común en la redacción de tus escritos.", true);
+                } else {
+                    gameFeedback.className = "mt-6 p-4 rounded-xl text-center bg-rose-50 text-rose-950 border border-rose-200 text-xs sm:text-sm";
+                    gameFeedback.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-rose-600 mr-1"></i> No coinciden. Revisa de nuevo las definiciones de cada cualidad de redacción.`;
+                }
+
+                // Reset Selection
+                state.matchingGame.selectedSentenceId = null;
+                state.matchingGame.selectedQualityId = null;
+                setTimeout(() => {
+                    document.querySelectorAll('.match-card').forEach(c => c.classList.remove('border-indigo-600', 'bg-indigo-50/20'));
+                }, 2000);
+            }
+            updateProgress();
+        }
+
+        // Slider Phase Change Simulations
+        const sliderContent = {
+            1: {
+                label: "FASE 1: PRE-ESCRITURA (PLANIFICACIÓN)",
+                difficulty: "Nivel de Pensamiento Lógico",
+                content: "Esquema preliminar ordenado:<br><strong>Idea central:</strong> El rezago de lectura académica en el primer ingreso genera deserción.<br><strong>Punto 1:</strong> Dificultad para resumir textos densos.<br><strong>Punto 2:</strong> Frustración escolar secundaria.<br><strong>Solución:</strong> Talleres remediales interactivos guiados."
+            },
+            2: {
+                label: "FASE 2: REDACCIÓN (PRIMER BORRADOR)",
+                difficulty: "Nivel de Producción Creativa",
+                content: "El rezago que tienen los estudiantes que apenas entran a la universidad en temas de leer textos largos hace que muchos se salgan. Tienen problemas de resumir textos y se sienten frustrados. Creemos que hacer talleres interactivos que los ayuden va a servir bastante para evitar que reprueben."
+            },
+            3: {
+                label: "FASE 3: REVISIÓN (POS-ESCRITURA PULIDA)",
+                difficulty: "Nivel de Excelencia Académica",
+                content: "El rezago en comprensión lectora que presentan los estudiantes de nuevo ingreso constituye un factor determinante en la deserción universitaria. Esta problemática se manifiesta en la incapacidad para sintetizar literatura densa, lo cual genera frustración. Por consiguiente, la implementación de talleres de inducción interactivos representa una estrategia pedagógica viable para favorecer la retención escolar."
+            }
+        };
+
+        function updateSliderPhase(val) {
+            const phaseLabel = document.getElementById('phase-label');
+            const phaseDifficulty = document.getElementById('phase-difficulty');
+            const phaseContentMain = document.getElementById('phase-content-main');
+
+            const info = sliderContent[val];
+            phaseLabel.innerHTML = info.label;
+            phaseDifficulty.innerText = info.difficulty;
+            phaseContentMain.innerHTML = info.content;
+
+            if (val == 3 && !state.completedModules.modulo3) {
+                state.gameScore += 20;
+                showNotification("¡Fase de Revisión Explorada!", "Verificaste cómo pulir un texto ordinario y llevarlo al nivel universitario.", true);
+                state.completedModules.modulo3 = true;
+                updateProgress();
+            }
+        }
+
+        // Syntax Game Logic
+        function resetSyntaxGame() {
+            state.syntaxGame.shuffled = [...state.syntaxGame.words].sort(() => Math.random() - 0.5);
+            state.syntaxGame.built = [];
+            renderWordPool();
+            renderBuiltSentence();
+            document.getElementById('syntax-game-feedback').className = "mt-4 hidden p-4 rounded-xl border text-xs sm:text-sm font-semibold transition-all duration-300";
+        }
+
+        function renderWordPool() {
+            const pool = document.getElementById('word-pool');
+            pool.innerHTML = '';
+            
+            state.syntaxGame.shuffled.forEach((w, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "bg-slate-100 hover:bg-indigo-100 text-slate-800 border border-slate-200 px-3 py-1.5 rounded-xl text-xs sm:text-sm transition-all shadow-sm font-medium";
+                btn.innerText = w;
+                btn.onclick = () => selectWord(w, idx);
+                pool.appendChild(btn);
+            });
+        }
+
+        function renderBuiltSentence() {
+            const panel = document.getElementById('built-sentence');
+            panel.innerHTML = '';
+
+            if (state.syntaxGame.built.length === 0) {
+                panel.innerHTML = `<span class="text-slate-500 italic text-xs">Haz clic en las palabras superiores para ordenarlas...</span>`;
+                return;
+            }
+
+            state.syntaxGame.built.forEach((w, idx) => {
+                const badge = document.createElement('span');
+                badge.className = "bg-indigo-600 text-white px-2.5 py-1 rounded-lg text-xs sm:text-sm flex items-center space-x-1 cursor-pointer hover:bg-red-500 transition-colors";
+                badge.innerHTML = `${w} <i class="fa-solid fa-xmark ml-1 text-[10px] opacity-70"></i>`;
+                badge.onclick = () => deselectWord(w, idx);
+                panel.appendChild(badge);
+            });
+        }
+
+        function selectWord(word, index) {
+            // Add to built
+            state.syntaxGame.built.push(word);
+            // Remove from shuffled pool
+            state.syntaxGame.shuffled.splice(index, 1);
+            renderWordPool();
+            renderBuiltSentence();
+        }
+
+        function deselectWord(word, index) {
+            // Remove from built
+            state.syntaxGame.built.splice(index, 1);
+            // Add back to pool
+            state.syntaxGame.shuffled.push(word);
+            renderWordPool();
+            renderBuiltSentence();
+        }
+
+        function checkSyntaxOrder() {
+            const feedback = document.getElementById('syntax-game-feedback');
+            feedback.classList.remove('hidden');
+
+            const builtText = state.syntaxGame.built.join(" ");
+            const correctText = state.syntaxGame.correctOrder.join(" ");
+
+            if (builtText === correctText) {
+                state.gameScore += 30;
+                feedback.className = "mt-4 p-4 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-950 text-xs sm:text-sm";
+                feedback.innerHTML = `
+                    <h5 class="font-bold flex items-center mb-1"><i class="fa-solid fa-circle-check mr-1.5 text-emerald-600"></i> ¡Sintaxis Perfecta!</h5>
+                    <p>Has ordenado correctamente el sujeto, verbo, objetos y circunstancias. Lograste estructurar una idea limpia y sin ruidos de comunicación. (+30 puntos)</p>
+                `;
+                showNotification("¡Desafío Resuelto!", "Has dominado la estructura canónica del español.", true);
+                state.completedModules.modulo4 = true;
+                updateProgress();
+            } else {
+                feedback.className = "mt-4 p-4 rounded-xl border border-rose-200 bg-rose-50 text-rose-950 text-xs sm:text-sm";
+                feedback.innerHTML = `
+                    <h5 class="font-bold flex items-center mb-1"><i class="fa-solid fa-triangle-exclamation mr-1.5 text-rose-600"></i> Orden sintáctico incorrecto</h5>
+                    <p>Aunque el español tiene cierta flexibilidad, este orden rompe la coherencia o desvía el significado principal de la frase. ¡Vuelve a intentarlo!</p>
+                `;
+            }
+        }
+
+        // Project switch tab logic
+        function selectProjectOption(optionId) {
+            state.selectedProject = optionId;
+            const pTabs = document.querySelectorAll('.project-tab-btn');
+            pTabs.forEach(t => {
+                t.className = "project-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-white text-slate-600 hover:bg-slate-50 border border-slate-200";
+            });
+
+            const activeBtn = document.getElementById('proj-btn-' + optionId);
+            if (activeBtn) {
+                activeBtn.className = "project-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-indigo-600 text-white shadow-md shadow-indigo-100";
+            }
+
+            // Fill prompt text
+            const info = state.projectPrompts[optionId];
+            const display = document.getElementById('proj-details');
+            display.innerHTML = `
+                <div class="flex items-center space-x-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <h4 class="font-bold text-slate-900 text-sm sm:text-base">${info.title}</h4>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">${info.desc}</p>
+                <div class="p-3.5 bg-indigo-50 border border-indigo-100 rounded-xl text-indigo-950 text-xs">
+                    <strong class="block mb-1"><i class="fa-solid fa-circle-info mr-1"></i> Indicadores Específicos:</strong>
+                    ${info.indicators}
+                </div>
+            `;
+        }
+
+        // Word count evaluator
+        function updateWordCounter() {
+            const text = document.getElementById('student-submission').value.trim();
+            state.studentSubmissionText = text;
+
+            const words = text === "" ? 0 : text.split(/\s+/).length;
+            document.getElementById('word-count').innerText = words;
+
+            const status = document.getElementById('word-status');
+            if (words >= 150 && words <= 300) {
+                status.className = "text-[10px] uppercase font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded";
+                status.innerText = "Correcto (Rango óptimo para evaluación sumativa)";
+            } else if (words > 300) {
+                status.className = "text-[10px] uppercase font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded";
+                status.innerText = "Demasiado largo (Máx. 300 palabras)";
+            } else {
+                status.className = "text-[10px] uppercase font-bold text-red-500 bg-red-50 px-2 py-0.5 rounded";
+                status.innerText = "Fuera de rango (mínimo 150)";
+            }
+
+            // Real-time update inside Teacher Console preview
+            document.getElementById('doc-submission-preview').innerHTML = text === "" 
+                ? "No se ha registrado ninguna entrega final todavía." 
+                : `<strong>Opción Elegida: ${state.selectedProject}</strong><br>"${text}"`;
+        }
+
+        // Self evaluation rubric total calculation
+        function selectRubricScore(criterion, score, element) {
+            state.rubricScore[criterion] = score;
+
+            // Clear visual selection state for target criterion group
+            const btns = document.querySelectorAll(`.rubric-btn-${criterion}`);
+            btns.forEach(b => {
+                b.className = `rubric-btn-${criterion} bg-slate-100 text-slate-700 hover:bg-indigo-50 text-xs px-3 py-2 rounded-lg font-semibold transition-all`;
+            });
+
+            // Highlight selected
+            element.className = `rubric-btn-${criterion} bg-indigo-600 text-white text-xs px-3 py-2 rounded-lg font-semibold transition-all shadow-md shadow-indigo-100`;
+
+            // Recalculate
+            const total = state.rubricScore.claridad + state.rubricScore.sintaxis + state.rubricScore.fases;
+            document.getElementById('rubric-total').innerText = total;
+
+            // Sync to Docente Panel
+            document.getElementById('doc-rubric-score').innerText = `${total} / 15`;
+        }
+
+        // Final Work submit
+        function submitFinalWork() {
+            const text = state.studentSubmissionText.trim();
+            const words = text === "" ? 0 : text.split(/\s+/).length;
+
+            if (words < 150) {
+                showNotification("Requisito no cumplido", "Tu texto debe poseer al menos 150 palabras para ser evaluado adecuadamente.", false);
+                return;
+            }
+
+            state.completedModules.integradora = true;
+            state.gameScore += 50;
+            updateProgress();
+
+            showNotification("¡Trabajo Enviado!", "Tu proyecto final ha sido almacenado localmente en esta cápsula. Muéstralo a tu profesor en la consola.", true);
+        }
+
+        // Sync and render achievement checkboxes in the Teacher Panel
+        function updateAchievementIndicators() {
+            const ind1 = document.getElementById('ind-1');
+            const ind2 = document.getElementById('ind-2');
+            const ind3 = document.getElementById('ind-3');
+
+            // Indicator 1: Conceptualización
+            if (state.completedModules.modulo1) {
+                ind1.className = "w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs font-bold mr-3 mt-0.5";
+                ind1.innerHTML = `<i class="fa-solid fa-check"></i>`;
+            }
+            // Indicator 2: Cualidades
+            if (state.completedModules.modulo2) {
+                ind2.className = "w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs font-bold mr-3 mt-0.5";
+                ind2.innerHTML = `<i class="fa-solid fa-check"></i>`;
+            }
+            // Indicator 3: Sintaxis
+            if (state.completedModules.modulo4) {
+                ind3.className = "w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs font-bold mr-3 mt-0.5";
+                ind3.innerHTML = `<i class="fa-solid fa-check"></i>`;
+            }
+        }
+
+        // Clipboard action report copy
+        function copyDocReport() {
+            const totalRubric = state.rubricScore.claridad + state.rubricScore.sintaxis + state.rubricScore.fases;
+            const reportData = `
+========================================
+REPORTE DE EVALUACIÓN: COMPRENSIÓN LECTORA
+CÁPSULA ACADÉMICA DE REDACCIÓN Y SINTAXIS
+========================================
+- Tipo de Trabajo Escrito: ${state.selectedProject.toUpperCase()}
+- Longitud del Texto: ${state.studentSubmissionText.split(/\s+/).length} palabras
+- Puntaje Formativo Gamificado: ${state.gameScore} puntos
+- Puntaje de Autoevaluación Rubrica: ${totalRubric}/15 puntos
+  * Claridad y Concisión: ${state.rubricScore.claridad}/5
+  * Sintaxis y Cohesión: ${state.rubricScore.sintaxis}/5
+  * Fases de Escritura: ${state.rubricScore.fases}/5
+
+TEXTO ENTREGADO POR EL ALUMNO:
+----------------------------------------
+"${state.studentSubmissionText}"
+----------------------------------------
+Sistemas y Didáctica Web de Nivel Superior - Evidencia Local de Aprendizaje.
+`;
+
+            // Create temporary textarea element to copy text
+            const tempTextArea = document.createElement("textarea");
+            tempTextArea.value = reportData;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const msg = document.getElementById('copy-success-msg');
+            msg.classList.remove('hidden');
+            setTimeout(() => {
+                msg.classList.add('hidden');
+            }, 4000);
+            
+            showNotification("¡Copiado!", "Reporte de evidencias listo para pegar en tu libreta de calificaciones.", true);
+        }
+    </script>
+</body>
+</html>

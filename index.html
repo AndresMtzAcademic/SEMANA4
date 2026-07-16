@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso de Inducción - Comprensión Lectora</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 900px;
+            width: 100%;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Logo Section */
+        .logo-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 60px;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Header */
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        h2 {
+            color: #667eea;
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+
+        /* Description */
+        .description {
+            text-align: center;
+            color: #555;
+            margin-bottom: 50px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Buttons Container */
+        .buttons-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 18px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.3s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(-2px);
+        }
+
+        /* Button Numbers */
+        .btn-number {
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .btn-text {
+            display: block;
+            font-size: 0.95rem;
+            opacity: 0.95;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #e0e0e0;
+            color: #888;
+            font-size: 0.95rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.2rem;
+            }
+
+            .logo {
+                width: 100px;
+                height: 100px;
+                font-size: 50px;
+            }
+
+            .buttons-container {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 15px;
+            }
+
+            .btn {
+                padding: 15px 20px;
+                font-size: 1rem;
+            }
+
+            .btn-number {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 15px;
+                border-radius: 10px;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            h2 {
+                font-size: 1rem;
+            }
+
+            .logo {
+                width: 80px;
+                height: 80px;
+                font-size: 40px;
+            }
+
+            .buttons-container {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .btn {
+                padding: 12px 15px;
+                font-size: 0.95rem;
+            }
+
+            .description {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo Section -->
+        <div class="logo-section">
+            <div class="logo">
+                <!-- Aquí va el logo de la Universidad Tecnológica de la Selva -->
+                <!-- <img src="logo-universidad.png" alt="Logo Universidad" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;"> -->
+                📚
+            </div>
+        </div>
+
+        <!-- Header -->
+        <h1>Curso de Inducción Comprensión Lectora</h1>
+        <h2>Universidad Tecnológica de la Selva</h2>
+
+        <!-- Description -->
+        <p class="description">
+            Bienvenido al curso de inducción de comprensión lectora. Selecciona la semana que deseas revisar para continuar con el material educativo.
+        </p>
+
+        <!-- Buttons -->
+        <div class="buttons-container">
+            <a href="Capsula%20Educativa%20-Semana%201.html" class="btn">
+                <span class="btn-number">1</span>
+                <span class="btn-text">Semana 1</span>
+            </a>
+            <a href="Capsula%20Educativa-Semana%202.html" class="btn">
+                <span class="btn-number">2</span>
+                <span class="btn-text">Semana 2</span>
+            </a>
+            <a href="Capsula%20Educativa-Semana%203.html" class="btn">
+                <span class="btn-number">3</span>
+                <span class="btn-text">Semana 3</span>
+            </a>
+            <a href="Capsula%20Educativa-Semana%204.html" class="btn">
+                <span class="btn-number">4</span>
+                <span class="btn-text">Semana 4</span>
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2024 Universidad Tecnológica de la Selva. Todos los derechos reservados.</p>
+        </footer>
+    </div>
+</body>
+</html>
